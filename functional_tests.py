@@ -19,7 +19,7 @@ class NewVisitorTest(unittest.TestCase):
 
 		#She sees that the title of page and your header say 'to-do'
 		self.assertIn('To-Do', self.browser.title)
-		header_text = self.browser.find_element_by_tag_name('h1').text
+		header_text = self.browser.find_element_by_tag_name('h1').text #TO-DO see if is the correct statement find_element_by_tag_name
 		self.assertIn('To-Do', header_text)
 
 		#She is invited to insert one taks item immediately	
@@ -37,12 +37,22 @@ class NewVisitorTest(unittest.TestCase):
 
 		table = self.browser.find_element_by_id('id_list_table')
 		rows = table.find_elements_by_tag_name('tr')
-		self.assertTrue(
-			any(row.text == '1: Buy peacock feathers' for row in rows), f"New to-do item did not appear in table. Contents were: \n{table.text}"
-		)
-		#There is still a box inveting her to add other item. She inserts "Use peacock feathers to make a fly". She is methodic 
+		self.assertIn('1: Buy peacock feathers', [row.text for row in rows])
 
+		#There is still a box inveting her to add other item. She inserts "Use peacock feathers to make a fly". She is methodic 
+		inputbox = self.browser.find_element_by_id('id_new_item')
+		inputbox.send_keys('Use peacock feathers to make a fly')
+		inputbox.send_keys(Keys.ENTER)
+		time.sleep(1)
+		
 		#The page is updated again and now show the two itens in your list
+		table = self.browser.find_element_by_id('id_list_table')
+		rows = table.find_elements_by_tag_name('tr')
+		self.assertIn('1: Buy peacock feathers', [row.text for row in rows])
+		self.assertIn(
+			'2: Use peacock feathers to make fly',
+			[row.text for row in rows]		
+			)
 
 		#Edith quenstion herself if the will remember her list. So she sees that site generate an URL just her. There is a litle text explain it.
 
