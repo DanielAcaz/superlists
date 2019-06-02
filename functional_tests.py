@@ -49,7 +49,7 @@ class NewVisitorTest(unittest.TestCase):
 		
 		#The page is updated again and now show the two itens in your list
 		self.check_for_row_in_list_table('1: Buy peacock feathers')
-		self.check_for_row_in_list_table('2: Use peacock feathers to make fly')
+		self.check_for_row_in_list_table('2: Use peacock feathers to make a fly')
 		
 		#Edith quenstion herself if the will remember her list. So she sees that site generate an URL just her. There is a litle text explain it.
 
