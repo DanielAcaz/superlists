@@ -24,7 +24,7 @@ class ListAndItemModelTest(TestCase):
 
 		second_item = Item()
 		second_item.text = 'Item the second'
-		second_item.list - list_
+		second_item.list = list_
 		second_item.save()
 
 		saved_list = List.objects.first()
@@ -47,8 +47,9 @@ class ListViewTest(TestCase):
 		self.assertTemplateUsed(response, 'list.html')
 
 	def test_display_all_items(self):
-		Item.objects.create(text='itemey 1')
-		Item.objects.create(text='itemey 2')
+		list_ = List.objects.create()
+		Item.objects.create(text='itemey 1', list = list_)
+		Item.objects.create(text='itemey 2', list = list_)
 
 		response = self.client.get('/lists/the-only-list-in-the-world/')
 
